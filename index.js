@@ -59,10 +59,30 @@ app.post("/article", function(req,res){
         content: req.body.content
     });
 
-    ArticleData.save();
+    ArticleData.save(function(err){
+        if(!err){
+            res.send("Sucessfuly added article");
+        }
+        else{
+            res.send(err);
+        }
+    });
 })
 //------------------------------------------------------------------
 
+// delete route for articles
+app.delete("/article",function(req,res){
+    Article.deleteMany(
+        function(err){
+            if(!err){
+                res.send('Sucessfully deleted all articles');
+            }
+            else{
+                res.send(err);
+            }
+        }
+    )
+})
 
 //Update the server on localhost 3000
 app.listen(8000,function(req,res){
